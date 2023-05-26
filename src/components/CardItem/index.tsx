@@ -1,13 +1,25 @@
 import { Card, CardBody, Image, Text, Link, Flex } from "@chakra-ui/react";
-import { IResult } from "../../pages/Characters/interface";
 import { useNavigate } from "react-router-dom";
+import { IThumbnail } from "../../interface/";
 
-interface CharacterCardProps {
-  character: IResult;
+interface CardItemProps<T> {
+  item: T;
+  nameKey: keyof T;
+  thumbnailKey: keyof T;
+  idKey: keyof T;
+  pathname?: string;
 }
 
-const CardItem = ({ character }: CharacterCardProps) => {
-  const { name, thumbnail } = character;
+const CardItem = <T,>({
+  item,
+  nameKey,
+  thumbnailKey,
+  idKey,
+  pathname,
+}: CardItemProps<T>) => {
+  const name = item[nameKey] as string;
+  const thumbnail = item[thumbnailKey] as IThumbnail;
+  const id = item[idKey] as string;
   let navigate = useNavigate();
   return (
     <Link>
@@ -17,9 +29,9 @@ const CardItem = ({ character }: CharacterCardProps) => {
         p="4"
         height="100%"
         width="100%"
-        key={character.id}
+        key={(item as any).id}
         onClick={() =>
-          navigate(`/details/${character.id}`, { state: { character } })
+          navigate(`${pathname}/${id}`, { state: { item } })
         }
       >
         <Flex direction="column" align="center">
@@ -28,7 +40,7 @@ const CardItem = ({ character }: CharacterCardProps) => {
               src={`${thumbnail.path}.${thumbnail.extension}`}
               alt={name}
               objectFit="cover"
-              height="200px"
+              height="300px"
               width="100%"
             />
             <Text mt="2" fontWeight="semibold">

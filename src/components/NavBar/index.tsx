@@ -76,6 +76,13 @@ const NavBar = () => {
           >
             Personagens
           </Link>
+          <Link
+            href="/quadrinhos"
+            ml={4}
+            display={{ base: "none", md: "block" }}
+          >
+            Quadrinhos
+          </Link>
         </Flex>
       </Flex>
 
@@ -100,11 +107,14 @@ const NavBar = () => {
                 alignItems="center"
                 my={5}
               >
-                <Link href="/" onClick={onClose} mb={5}>
+                <Link href="/" onClick={onClose}>
                   Home
                 </Link>
-                <Link href="/personagens" onClick={onClose}>
+                <Link href="/personagens" mt={5} onClick={onClose}>
                   Personagens
+                </Link>
+                <Link href="/quadrinhos" mt={5} onClick={onClose}>
+                  Quadrinhos
                 </Link>
               </Box>
             </DrawerBody>

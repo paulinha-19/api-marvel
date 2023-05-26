@@ -1,20 +1,25 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 import { Heading, Container, Spinner } from "@chakra-ui/react";
 import { useQuery } from "react-query";
 import { getCharacters } from "../../util/requests";
-import { ICharacters, IResult } from "./interface";
+import { IRootCharacters, IResult } from "./interface";
 import CardItem from "../../components/CardItem";
 import LoadMore from "../../components/LoadMore";
 import CardContainer from "../../components/CardContainer";
 
 const Characters = () => {
   const [characters, setCharacters] = useState<IResult[]>([]);
+  const {pathname} = useLocation();
+  {
+    console.log("ROTA ATUAL" , pathname);
+  }
   const {
     isLoading,
     isError,
     data: dataCharacters,
     error,
-  } = useQuery<ICharacters, unknown, ICharacters>("characters", () =>
+  } = useQuery<IRootCharacters, unknown, IRootCharacters>("characters", () =>
     getCharacters()
   );
 
@@ -50,7 +55,14 @@ const Characters = () => {
       </Heading>
       <CardContainer>
         {characters.map((character: IResult) => (
-          <CardItem key={character.id} character={character} />
+          <CardItem<IResult>
+            item={character}
+            nameKey="name"
+            thumbnailKey="thumbnail"
+            idKey="id"
+            key={character.id}
+            pathname={pathname}
+          />
         ))}
       </CardContainer>
       {parseInt(dataCharacters?.data.total || "0", 10) > characters.length && (

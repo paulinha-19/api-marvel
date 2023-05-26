@@ -1,7 +1,5 @@
 import { IThumbnail } from "../../interface";
-import { IUrl } from "../../interface";
-
-export interface IRootCharacters {
+export interface IRootCreators {
   code: string;
   status: string;
   copyright: string;
@@ -21,19 +19,27 @@ export interface IData {
 
 export interface IResult {
   id: string;
-  name: string;
-  description: string;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  suffix: string;
+  fullName: string;
   modified: string;
   resourceURI: string;
   urls: IUrl[];
   thumbnail: IThumbnail;
-  comics: IComics;
-  stories: IStories;
-  events: IEvents;
   series: ISeries;
+  stories: IStories;
+  comics: IComics;
+  events: IEvents;
 }
 
-export interface IComics {
+export interface IUrl {
+  type: string;
+  url: string;
+}
+
+export interface ISeries {
   available: string;
   returned: string;
   collectionURI: string;
@@ -45,12 +51,6 @@ export interface Item {
   name: string;
 }
 
-export interface Item2 {
-  resourceURI: string;
-  name: string;
-  type: string;
-}
-
 export interface IStories {
   available: string;
   returned: string;
@@ -58,14 +58,20 @@ export interface IStories {
   items: Item2[];
 }
 
-export interface IEvents {
+export interface Item2 {
+  resourceURI: string;
+  name: string;
+  type: string;
+}
+
+export interface IComics {
   available: string;
   returned: string;
   collectionURI: string;
   items: Item[];
 }
 
-export interface ISeries {
+export interface IEvents {
   available: string;
   returned: string;
   collectionURI: string;
