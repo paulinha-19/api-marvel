@@ -17,10 +17,8 @@ const DetailsComics = () => {
     description,
     urls,
     series,
-    prices,
     thumbnail,
     creators,
-    characters,
   }: IResultComics = data?.data.results[0] || {};
   const detailUrl = urls?.find((url: IUrl) => url.type === "detail")?.url;
   return (

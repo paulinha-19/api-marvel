@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Container, Heading } from "@chakra-ui/react";
-import CardItem from "../../components/CardItem";
 import CardContainer from "../../components/CardContainer";
 
 const Favorites = () => {
@@ -8,10 +7,7 @@ const Favorites = () => {
 
   useEffect(() => {
     const loadFavorites = () => {
-      const storedFavorites = Object.entries(localStorage)
-        .filter(([key, value]) => value === "true")
-        .map(([key]) => key);
-      setFavorites(storedFavorites);
+        setFavorites(favorites);
     };
 
     loadFavorites();
@@ -25,7 +21,9 @@ const Favorites = () => {
       {favorites.length > 0 ? (
         <CardContainer>
           {favorites.map((id) => (
-            <></>
+            <>
+            {id}
+            </>
           ))}
         </CardContainer>
       ) : (

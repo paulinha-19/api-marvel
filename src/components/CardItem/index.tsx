@@ -9,7 +9,6 @@ import {
 } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
 import { IThumbnail } from "../../interface/";
-import { useState } from "react";
 import { FaHeart } from "react-icons/fa";
 
 interface CardItemProps<T> {
@@ -32,15 +31,7 @@ const CardItem = <T,>({
   const name = item[nameKey] as string;
   const thumbnail = item[thumbnailKey] as IThumbnail;
   const id = item[idKey] as string;
-  const [favorite, setFavorite] = useState<boolean>(
-    localStorage.getItem(id) === "true"
-  );
   const toggleFavorite = () => {
-    setFavorite((prevIsFavorite) => {
-      const newIsFavorite = !prevIsFavorite;
-      localStorage.setItem(id, String(newIsFavorite));
-      return newIsFavorite;
-    });
   };
   let navigate = useNavigate();
   return (
