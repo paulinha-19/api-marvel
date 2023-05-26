@@ -5,6 +5,7 @@ import PageNotFound from "../pages/PageNotFound";
 import DetailsCharacters from "../pages/Characters/details";
 import Comics from "../pages/Comics";
 import DetailsComics from "../pages/Comics/details";
+import Favorites from "../pages/Favorite";
 
 const Rotas = () => {
   return (
@@ -14,6 +15,7 @@ const Rotas = () => {
       <Route path="/personagens/:id" element={<DetailsCharacters />} />
       <Route path="/quadrinhos" element={<Comics />} />
       <Route path="/quadrinhos/:id" element={<DetailsComics />} />
+      <Route path="/favoritos" element={<Favorites />} />
       <Route path="*" element={<PageNotFound />} />
     </Routes>
   );

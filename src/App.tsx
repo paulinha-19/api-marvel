@@ -3,9 +3,9 @@ import Rotas from "./routes";
 
 function App() {
   return (
-      <Layout>
+    <Layout>
         <Rotas />
-      </Layout>
+    </Layout>
   );
 }
 

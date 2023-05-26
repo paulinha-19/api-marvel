@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Box,
   Flex,
@@ -16,19 +16,43 @@ import {
 } from "@chakra-ui/react";
 import { MoonIcon, SunIcon, HamburgerIcon } from "@chakra-ui/icons";
 import logo from "../../assets/logo/iron-man.png";
+import { useLocation } from "react-router-dom";
+import { searchCharacters, searchComics } from "../../util/requests";
+import { useMutation } from "react-query";
+import { useSearch } from "../../context/Search/useSearch";
 
 const NavBar = () => {
-  const [searchValue, setSearchValue] = useState("");
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const { searchTerm, setSearchTerm } = useSearch();
+  const { pathname } = useLocation();
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchValue(event.target.value);
+    setSearchTerm(event.target.value);
   };
 
-  const handleSearchSubmit = (event: React.FormEvent) => {
+  const searchMutation = useMutation(
+    pathname === "/personagens" ? searchCharacters : searchComics,
+    {
+      onSuccess: (data) => {
+        if (pathname === "/personagens") {
+          console.log("Resultados da pesquisa de personagens:", data);
+        } else if (pathname === "/quadrinhos") {
+          console.log("Resultados da pesquisa de quadrinhos:", data);
+        }
+      },
+      onError: (error) => {
+        if (pathname === "/personagens") {
+          console.log("Erro na pesquisa de personagens:", error);
+        } else if (pathname === "/quadrinhos") {
+          console.log("Erro na pesquisa de quadrinhos:", error);
+        }
+      },
+    }
+  );
+  const handleSearchSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    console.log("Pesquisar:", searchValue);
+    searchMutation.mutate(searchTerm);
   };
 
   return (
@@ -52,7 +76,7 @@ const NavBar = () => {
             <Input
               type="text"
               placeholder="Pesquisar"
-              value={searchValue}
+              value={searchTerm}
               onChange={handleSearchChange}
               display={{ base: "none", md: "flex" }}
               mr={2}
@@ -96,7 +120,7 @@ const NavBar = () => {
                 <Input
                   type="text"
                   placeholder="Pesquisar"
-                  value={searchValue}
+                  value={searchTerm}
                   onChange={handleSearchChange}
                   mb={2}
                 />
