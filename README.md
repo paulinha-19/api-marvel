@@ -1,6 +1,6 @@
-# Api-marvel
+# Teste tecnico
 
-O projeto consome os dados da <a target="_blank" href="https://developer.marvel.com/">API-MARVEL<a/>
+O projeto consome os dados da <a target="_blank" href="https://developer.marvel.com/">API-MARVEL<a/> e foi um teste tecnico para uma vaga de desenvolvedor front end.
 
 ## Tecnologias Utilizadas
   
